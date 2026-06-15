@@ -241,7 +241,7 @@
       <div class="reveal-tabs">
         <button class="reveal-btn" onclick="showTab(this, 'f1-fig')">📄 Evidence: Figure 2</button>
         <span style="align-self:center;color:var(--neutral-light);font-size:16px">·</span>
-        <button class="reveal-btn" onclick="showTab(this, 'f1-demo')">🔬 Interact: Explore selectivity of an ANN model</button>
+        <button class="reveal-btn active" onclick="showTab(this, 'f1-demo')">🔬 Interact: Validate selectivity of an ANN model</button>
       </div>
 
       <!-- Figure 2 -->
@@ -275,7 +275,7 @@
               <label for="f1-model">Model</label>
               <select id="f1-model" onchange="updateF1demoLayer(); updateF1demoThresh(); drawF1demo()"></select>
             </div>
-              <div class="ctrl-group">
+            <div class="ctrl-group" style="display:none">
               <label for="f1-layer">Layer</label>
               <select id="f1-layer" onchange="drawF1demo()"></select>
             </div>
@@ -297,7 +297,8 @@
                     oninput="document.getElementById('f1-thresh-val').textContent=this.value; drawF1demo()" />
             </div>
           </div>
-          <div class="plot-info" id="f1-info">N = 729 face-selective units (0.18% of layer)</div>
+          <div class="plot-info" id="f1-layer-info" style="margin-bottom:0"></div>
+          <div class="plot-info" id="f1-info"></div>
           <div class="plot-wrap" style="height:210px;position:relative">
             <canvas id="f1-canvas"></canvas>
             <div class="plot-tooltip" id="f1-tip"></div>
@@ -959,6 +960,7 @@ function drawF1demo() {
   const thresh  = parseInt(document.getElementById('f1-thresh').value);
   const scale   = threshScale[thresh] || 1.0;
   const localizer = document.getElementById('f1-localizer').value;
+  const layer = MODEL_LAYERS?.[model]?.[domain] || '';
 
   if (!fig1demoData[localizer]) {
     document.getElementById('f1-info').textContent = 'Loading data...';
@@ -975,6 +977,9 @@ function drawF1demo() {
   const W = canvasWidth(canvas), H = 220;
   const ctx = setupCanvas(canvas, W, H);
   ctx.clearRect(0, 0, W, H);
+
+  const totalUnits = d.n_total;
+  document.getElementById('f1-layer-info').textContent = layer ? `Layer = ${layer} (N = ${totalUnits} total units)` : '';
 
   if (d.n_units === 0) {
     document.getElementById('f1-info').textContent = 'No units identified at this threshold.';
