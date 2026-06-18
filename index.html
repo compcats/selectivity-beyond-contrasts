@@ -413,7 +413,7 @@
           <div class="controls">
             <div class="ctrl-group">
               <label for="rdm-metric">Metric</label>
-              <select id="rdm-metric" onchange="drawRDM()">
+              <select id="rdm-metric" onchange="drawF23Demo2()">
                 <option>Univariate</option><option>Multivariate</option>
               </select>
             </div>
@@ -912,37 +912,8 @@ document.getElementById('blob-canvas').addEventListener('click', e => {
 });
 
 /* ---- Figure 2: unit response boxplot ---- */
-// TODO: replace with fetch('data/fig2_responses.json').then(d => { fig2Data=d; drawF1demo(); })
-// const fig2Data = {
-//   face: {
-//     vitb16siglip2res224:  { pctBase: 0.95, nBase: 3867, means: [ 2.5, -0.3, -0.2, -0.1], iqr: [[ 1.8,3.2],[-0.6,0.1],[-0.5,0.1],[-0.3,0.1]] },
-//     resnet50imagenet1kv2: { pctBase: 0.18, nBase: 729,  means: [ 2.8, -0.4, -0.3, -0.2], iqr: [[ 2.0,3.5],[-0.7,0.1],[-0.6,0.1],[-0.4,0.1]] },
-//     alexnetimagenet1kv1:  { pctBase: 0.05, nBase: 54,   means: [ 2.2, -0.3, -0.2, -0.1], iqr: [[ 1.5,3.0],[-0.5,0.1],[-0.4,0.1],[-0.3,0.1]] },
-//     alexnetrandom1:       { pctBase: 0,    nBase: 0,    means: [ 0.1,  0.0, -0.1,  0.0], iqr: [[-0.3,0.4],[-0.3,0.3],[-0.4,0.3],[-0.2,0.3]] },
-//   },
-//   body: {
-//     vitb16siglip2res224:  { pctBase: 0.37, nBase: 1511, means: [ 0.0,  2.2, -0.1, -0.1], iqr: [[-0.3,0.3],[ 1.5,3.0],[-0.4,0.1],[-0.3,0.1]] },
-//     resnet50imagenet1kv2: { pctBase: 0.03, nBase: 134,  means: [ 0.1,  2.5, -0.2, -0.1], iqr: [[-0.3,0.4],[ 1.8,3.2],[-0.5,0.1],[-0.3,0.1]] },
-//     alexnetimagenet1kv1:  { pctBase: 0.06, nBase: 62,   means: [ 0.1,  2.0, -0.1,  0.0], iqr: [[-0.3,0.3],[ 1.5,2.8],[-0.4,0.1],[-0.2,0.1]] },
-//     alexnetrandom1:       { pctBase: 0,    nBase: 0,    means: [ 0.1, -0.1,  0.0,  0.1], iqr: [[-0.3,0.4],[-0.3,0.4],[-0.3,0.3],[-0.2,0.3]] },
-//   },
-//   scene: {
-//     vitb16siglip2res224:  { pctBase: 0.04, nBase: 183,  means: [-0.1,  0.0,  2.0, -0.1], iqr: [[-0.4,0.2],[-0.3,0.2],[ 1.5,2.8],[-0.3,0.1]] },
-//     resnet50imagenet1kv2: { pctBase: 0.09, nBase: 363,  means: [-0.2, -0.1,  2.4, -0.1], iqr: [[-0.5,0.2],[-0.4,0.2],[ 1.8,3.1],[-0.4,0.1]] },
-//     alexnetimagenet1kv1:  { pctBase: 0.11, nBase: 118,  means: [-0.1,  0.0,  1.8, -0.1], iqr: [[-0.4,0.2],[-0.3,0.2],[ 1.3,2.5],[-0.3,0.1]] },
-//     alexnetrandom1:       { pctBase: 0,    nBase: 4,    means: [ 0.0,  0.1, -0.1,  0.1], iqr: [[-0.3,0.3],[-0.2,0.3],[-0.3,0.4],[-0.2,0.3]] },
-//   }
-// };
 let fig1demoData = {};
 
-// Promise.all([
-//   fetch('data/fig1demo_grillspector.json').then(r => r.json()),
-//   fetch('data/fig1demo_kanwisher.json').then(r => r.json()),
-//   fetch('data/fig1demo_nsd.json').then(r => r.json()),
-// ]).then(([grillspector, kanwisher, nsd]) => {
-//   fig1demoData = { grillspector, kanwisher, nsd };
-//   drawF1demo();
-// }).catch(err => console.error('Failed to load fig1demo data:', err));
 Promise.all([
   fetch('data/fig1demo_grillspector.json').then(r => r.json()),
   fetch('data/fig1demo_kanwisher.json').then(r => r.json()),
@@ -1218,7 +1189,7 @@ function makeRDM(noise) {
 const rdmUnivariate   = makeRDM(0.04);
 const rdmMultivariate = makeRDM(0.06);
 
-function drawRDM() {
+function drawF23Demo2() {
   const metric = document.getElementById('rdm-metric').value;
   const matrix = metric === 'Multivariate' ? rdmMultivariate : rdmUnivariate;
   const cell   = 12, gap = 1;
@@ -1446,13 +1417,13 @@ function drawFig6() {
 
 /* ---- Register global redraw for resize ---- */
 window.redrawAllPlots = () => {
-  drawBlob(); drawF1demo(); drawFig3Box(); drawRDM();
+  drawBlob(); drawF1demo(); drawFig3Box(); drawF23Demo2();
   drawFig5(); drawFig6();
 };
 
 /* ---- Initial render ---- */
 window.addEventListener('DOMContentLoaded', () => {
-  drawBlob(); drawF1demo(); drawFig3Box(); drawRDM();
+  drawBlob(); drawF1demo(); drawFig3Box(); drawF23Demo2();
   drawFig5(); drawFig6();
 });
 
