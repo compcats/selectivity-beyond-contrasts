@@ -246,7 +246,12 @@ function copyBibtex() {
 }
 
 /* ---- Reveal figure tabs ---- */
-function showTab(btn, panelId) {
+// Reverse map: slug → panel ID (computed from PANEL_SLUGS in constants.js)
+const SLUG_TO_PANEL = Object.fromEntries(
+  Object.entries(typeof PANEL_SLUGS !== 'undefined' ? PANEL_SLUGS : {}).map(([k, v]) => [v, k])
+);
+
+function showTab(btn, panelId, { scroll = false, pushHistory = true } = {}) {
   const tabs = btn.closest('.reveal-tabs');
   const panel = document.getElementById(panelId);
   const isActive = btn.classList.contains('active');
@@ -258,5 +263,30 @@ function showTab(btn, panelId) {
     btn.classList.add('active');
     panel.style.display = 'block';
     if (typeof window.redrawAllPlots === 'function') window.redrawAllPlots();
+    if (pushHistory) {
+      const slug = (typeof PANEL_SLUGS !== 'undefined' && PANEL_SLUGS[panelId]) || panelId;
+      history.replaceState(null, '', '#' + slug);
+    }
+    if (scroll) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    const section = tabs.closest('section');
+    if (pushHistory) history.replaceState(null, '', section ? '#' + section.id : location.pathname);
+  }
+}
+
+function navigateToHash(hash) {
+  const raw = hash.replace(/^#/, '');
+  if (!raw) return;
+  // Resolve slug → panel ID, falling back to treating raw as a direct ID
+  const panelId = SLUG_TO_PANEL[raw] || raw;
+  const el = document.getElementById(panelId);
+  if (!el) return;
+  if (el.classList.contains('reveal-panel')) {
+    const section = el.closest('section') || el.parentElement;
+    const btn = section && [...section.querySelectorAll('.reveal-btn')]
+      .find(b => (b.getAttribute('onclick') || '').includes("'" + panelId + "'"));
+    if (btn) showTab(btn, panelId, { scroll: true, pushHistory: false });
+  } else {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }

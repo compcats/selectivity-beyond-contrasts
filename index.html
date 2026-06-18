@@ -1646,6 +1646,8 @@ window.redrawAllPlots = () => {
 window.addEventListener('DOMContentLoaded', () => {
   drawBlob(); drawF1demo(); drawFig3Box(); drawF23Demo2();
   drawFig5(); drawFig6();
+  if (location.hash) navigateToHash(location.hash);
+  window.addEventListener('hashchange', () => navigateToHash(location.hash));
 });
 
 function toggleExpand(box) {

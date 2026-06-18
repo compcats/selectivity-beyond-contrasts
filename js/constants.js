@@ -146,3 +146,20 @@ const CAT_COLORS = {
 const PREF_IDX = { face: 0, body: 1, scene: 2 };
 const CAT_LABELS = ['Faces', 'Bodies', 'Scenes', 'Objects'];
 const SHADE_COLOR = '#E6E6E6';
+
+// Maps internal panel IDs → URL hash slugs.
+// Edit the values here to customise the links shown in the address bar.
+const PANEL_SLUGS = { // (slug values are used in the URL hash, e.g. #response-profiles)
+  'cc-fig':      'figure1', // finding1-schematic
+  'cc-demo':     'interactive-response-profiles',
+  'f1-fig':      'figure2', // finding2-evidence
+  'f1-demo':     'interactive-validate-selectivity',
+  'f23-fig1':    'figure3', // finding3-evidence
+  'f23-fig2':    'figure4', // finding3-robustness
+  'f23-demo1':   'interactive-explore-gap',
+  'f23-demo2':   'interactive-rdm',
+  'f4-fig':      'figure5', // finding4-evidence
+  'f4-demo':     'interactive-encoding-performance',
+  'f5-fig':      'figure6', // finding5-evidence
+  'f5-demo':     'interactive-interpretation',
+};
