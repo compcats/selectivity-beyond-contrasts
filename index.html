@@ -417,6 +417,16 @@
                 <option>Univariate</option><option>Multivariate</option>
               </select>
             </div>
+            <div class="ctrl-group">
+              <label for="rdm-localizer">Localizer</label>
+              <select id="rdm-localizer" disabled>
+                <option value="grillspector">Stigliani et al., 2015 (L1)</option>
+              </select>
+            </div>
+            <div class="ctrl-group">
+              <label for="rdm-thresh">t-threshold: <strong id="rdm-thresh-val">7</strong></label>
+              <input type="range" id="rdm-thresh" min="3" max="11" step="2" value="7" disabled />
+            </div>
           </div>
           <p class="interactive-hint">Hover cells to see pair name and correlation value.</p>
           <div class="rdm-scroll">
