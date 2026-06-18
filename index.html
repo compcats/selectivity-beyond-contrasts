@@ -1058,7 +1058,7 @@ function drawF1demo() {
     ctx.fillStyle   = 'rgba(0,0,0,1)';
     ctx.font        = '12px -apple-system, sans-serif';
     ctx.textAlign   = 'center';
-    ctx.fillText(lbl, cx, H - 6);
+    ctx.fillText(lbl, cx, H - 25);
   });
 
   // --- right spine + y-axis ticks ---
@@ -1099,6 +1099,12 @@ function drawF1demo() {
   ctx.rotate(-Math.PI / 2);
   ctx.fillText('Mean response, z-scored', 0, 0);
   ctx.restore();
+
+  // --- x-axis title ---
+  ctx.fillStyle = 'rgba(0,0,0,1)';
+  ctx.font      = '12px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Independent stimulus category (Prince et al., 2024)', W / 2, H - 4);
 }
 
 /* ---- Figure 3: similarity boxplot ---- */
