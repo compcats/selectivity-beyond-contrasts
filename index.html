@@ -418,15 +418,10 @@
               </select>
             </div>
           </div>
-          <div class="legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div> Brain (S1-S8)</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div> ANN models (CNNs · ViTs)</div>
-          </div>
           <p class="interactive-hint">Hover cells to see pair name and correlation value.</p>
           <div class="rdm-scroll">
             <div id="rdm-container"></div>
           </div>
-          <div class="rdm-hover-info" id="rdm-info"></div>
         </div>
       </div>
     </section>
@@ -1159,86 +1154,255 @@ function drawFig3Box() {
 }
 
 /* ---- RDM ---- */
-// TODO: load from data/fig3_rdm_univariate.json and data/fig3_rdm_multivariate.json
-const N_BRAIN = 8, N_ANN = 35;
-const N_TOTAL = N_BRAIN + N_ANN;
-const subjectLabels = ['S1','S2','S3','S4','S5','S6','S7','S8'];
-const modelLabels   = [
-  'ResNet-50 ImageNet-1K','ViT-B/16 SigLIP2','AlexNet ImageNet-1K',
-  'ConvNeXt-B','ViT-B/32 ImageNet-1K','CORNet-S','VGG-16','ResNet-18',
-  'CLIP ViT-B/32','DINOv2 ViT-B/14','BagNet-33','ResNet-50 Robust (L2)',
-  'ViT-B/32 DreamSim','ResNet-50 Blur-Trained','ResNet-50 Shape-Trained',
-  'AlexNet BarlowTwins','ViT-B/16 ImageNet-21K','ResNet-18 TDANN',
-  'CORNet-Z','AlexNet IPCL',
-  'ResNet-50 MoCo','ViT-S/16 DINO','ResNet-50 SimCLR','ViT-B/16 MAE',
-  'EfficientNet-B0','RegNetY-8GF','ConvNeXt-S','Swin-T',
-  'ResNet-101','ViT-L/14 CLIP','DINOv2 ViT-S/14','ResNet-50 SwAV',
-  'ViT-B/16 BarlowTwins','ResNet-50 VICReg','ViT-B/16 MoCo-v3'
+let rdmData = null;
+
+fetch('data/f23demo2.json').then(r => r.json()).then(d => {
+  rdmData = d;
+  drawF23Demo2();
+}).catch(err => console.error('Failed to load f23demo2 data:', err));
+
+const rdmTip = document.createElement('div');
+rdmTip.style.cssText =
+  'position:fixed;background:rgba(20,20,20,0.92);color:#fff;' +
+  'font-size:11.5px;line-height:1.6;padding:7px 10px;border-radius:5px;' +
+  'pointer-events:none;z-index:9999;display:none;white-space:nowrap;' +
+  'font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
+  'box-shadow:0 2px 8px rgba(0,0,0,0.3)';
+document.body.appendChild(rdmTip);
+
+const RDM_RANGES = {
+  Univariate:   { vMin: -0.8, vMax: 1.0 },
+  Multivariate: { vMin: -0.4, vMax: 1.0 },
+};
+
+// Piecewise: [vMin,0]→[0,0.5] (blue→white), [0,vMax]→[0.5,1] (white→red), clamped
+function rdmNorm(v, vMin, vMax) {
+  if (v <= 0) return 0.5 * Math.max(0, (v - vMin) / (0 - vMin));
+  else        return 0.5 + 0.5 * Math.min(1, v / vMax);
+}
+
+// matplotlib RdBu_r: t=0 → dark blue, t=0.5 → near-white, t=1 → dark red
+const RDU_STOPS = [
+  [0.0,  [5,   48,  97 ]],
+  [0.1,  [33,  102, 172]],
+  [0.2,  [67,  147, 195]],
+  [0.3,  [146, 197, 222]],
+  [0.4,  [209, 229, 240]],
+  [0.5,  [247, 247, 247]],
+  [0.6,  [253, 219, 199]],
+  [0.7,  [244, 165, 130]],
+  [0.8,  [214, 96,  77 ]],
+  [0.9,  [178, 24,  43 ]],
+  [1.0,  [103, 0,   31 ]],
 ];
 
-function makeRDM(noise) {
-  // synthetic: brain-brain high, ANN-ANN medium, cross low
-  const m = [];
-  for (let i = 0; i < N_TOTAL; i++) {
-    m[i] = [];
-    for (let j = 0; j < N_TOTAL; j++) {
-      if (i === j) { m[i][j] = null; continue; }
-      let base;
-      if (i < N_BRAIN && j < N_BRAIN) base = 0.88 + Math.random() * 0.12;
-      else if (i >= N_BRAIN && j >= N_BRAIN) base = 0.28 + Math.random() * 0.45;
-      else base = 0.32 + Math.random() * 0.32;
-      m[i][j] = Math.min(1.05, base + (Math.random() - 0.5) * noise);
-    }
+function rdmColor(t) {
+  t = Math.max(0, Math.min(1, t));
+  let lo = RDU_STOPS[0], hi = RDU_STOPS[RDU_STOPS.length - 1];
+  for (let i = 0; i < RDU_STOPS.length - 1; i++) {
+    if (t <= RDU_STOPS[i + 1][0]) { lo = RDU_STOPS[i]; hi = RDU_STOPS[i + 1]; break; }
   }
-  return m;
+  const s = (hi[0] === lo[0]) ? 0 : (t - lo[0]) / (hi[0] - lo[0]);
+  const r = Math.round(lo[1][0] + s * (hi[1][0] - lo[1][0]));
+  const g = Math.round(lo[1][1] + s * (hi[1][1] - lo[1][1]));
+  const b = Math.round(lo[1][2] + s * (hi[1][2] - lo[1][2]));
+  return `rgb(${r},${g},${b})`;
 }
-const rdmUnivariate   = makeRDM(0.04);
-const rdmMultivariate = makeRDM(0.06);
+
+// Returns a display string for a row/col index: "S3 FFA" for brains,
+// "ViT-B/16 SigLIP2 (layer.name)" for models (layer looked up by froi category)
+function rdmDisplayInfo(idx, blocks, labels) {
+  const block = blocks.find(b => idx >= b.start && idx < b.end);
+  const key = labels[idx];
+  if (block.type === 'brain') return key;
+  const dispName = ORDERED_MODELS[key] ?? key;
+  const layer = MODEL_LAYERS?.[key]?.[block.category];
+  return layer ? `${dispName} (${layer})` : dispName;
+}
+
+function drawRdmColorbar(canvas, metric) {
+  const { vMin, vMax } = RDM_RANGES[metric];
+  const dpr = window.devicePixelRatio || 1;
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.scale(dpr, dpr);
+
+  const W = canvas.width / dpr;
+  const H = canvas.height / dpr;
+  const barW = 12, barX = 4;
+  const TRI_H = 10;
+  // bar starts below the triangle, leaves 6px at bottom for bottom tick label
+  const barTop = TRI_H + 2, barH = H - barTop - 6;
+
+  // gradient: top = vMax (red/dark-red), bottom = vMin (blue/dark-blue)
+  for (let y = 0; y < barH; y++) {
+    ctx.fillStyle = rdmColor(1 - y / barH);
+    ctx.fillRect(barX, barTop + y, barW, 1);
+  }
+  ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+  ctx.lineWidth = 0.5;
+  ctx.strokeRect(barX, barTop, barW, barH);
+
+  // upward-pointing triangle flush with bar top, same width as bar
+  ctx.beginPath();
+  ctx.moveTo(barX,          barTop);           // bottom-left
+  ctx.lineTo(barX + barW,   barTop);           // bottom-right
+  ctx.lineTo(barX + barW/2, barTop - TRI_H);  // apex
+  ctx.closePath();
+  ctx.fillStyle = rdmColor(1);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+
+  // ticks at vMax, 0, vMin
+  const ticks = [vMax, 0, vMin];
+  ctx.font = '9px -apple-system, sans-serif';
+  ctx.textAlign = 'left';
+  ticks.forEach(v => {
+    const t = rdmNorm(v, vMin, vMax);
+    const y = Math.round(barTop + (1 - t) * barH);
+    ctx.beginPath();
+    ctx.moveTo(barX + barW, y);
+    ctx.lineTo(barX + barW + 3, y);
+    ctx.strokeStyle = 'rgba(0,0,0,0.6)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(0,0,0,0.8)';
+    ctx.fillText(v === 0 ? '0' : v.toFixed(1), barX + barW + 5, y + 3);
+  });
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
 
 function drawF23Demo2() {
-  const metric = document.getElementById('rdm-metric').value;
-  const matrix = metric === 'Multivariate' ? rdmMultivariate : rdmUnivariate;
-  const cell   = 12, gap = 1;
-  const cont   = document.getElementById('rdm-container');
+  if (!rdmData) return;
+  const metric  = document.getElementById('rdm-metric').value;
+  const { vMin, vMax } = RDM_RANGES[metric];
+  const matrix  = metric === 'Multivariate' ? rdmData.multivariate : rdmData.univariate;
+  const labels  = rdmData.labels;
+  const blocks  = rdmData.blocks;
+  const N       = labels.length;
+  const cell    = 5;
+  const SEP_PX  = 3;
+  const blockStarts = new Set(blocks.map(b => b.start));
+  const numSeps = blocks.length - 1; // 8 separators
+  const gridPx  = N * cell + numSeps * SEP_PX; // total grid width/height in px
+
+  // per-block pixel heights (including leading separator for non-first blocks)
+  const blockH = blocks.map((b, bi) =>
+    (bi > 0 ? SEP_PX : 0) + (b.end - b.start) * cell
+  );
+
+  const norm = v => rdmNorm(v, vMin, vMax);
+
+  const cont = document.getElementById('rdm-container');
   cont.innerHTML = '';
+
+  const LABEL_COL_W = 20; // px width of left label column
+  const LABEL_FONT  = '11px';
+
+  // ── top labels row (above grid, offset by left column width) ──
+  const topRow = document.createElement('div');
+  topRow.style.cssText = `display:flex;align-items:flex-end;margin-left:${LABEL_COL_W + 6}px;margin-bottom:2px`;
+  blocks.forEach((b, bi) => {
+    const w = (b.end - b.start) * cell + (bi > 0 ? SEP_PX : 0);
+    const span = document.createElement('span');
+    span.textContent = b.label;
+    span.style.cssText =
+      `display:inline-block;width:${w}px;flex-shrink:0;overflow:hidden;` +
+      `white-space:nowrap;font-size:${LABEL_FONT};color:rgba(0,0,0,0.75);` +
+      `text-align:center;padding-left:${bi > 0 ? SEP_PX : 0}px`;
+    topRow.appendChild(span);
+  });
+  cont.appendChild(topRow);
+
+  // ── outer flex row: [left-labels] [grid] [colorbar] ──
+  const row = document.createElement('div');
+  row.style.cssText = 'display:flex;align-items:flex-start;gap:6px';
+
+  // ── left labels (rotated block names) ──
+  const leftCol = document.createElement('div');
+  leftCol.style.cssText = 'display:flex;flex-direction:column;flex-shrink:0';
+  blocks.forEach((b, bi) => {
+    const h = blockH[bi];
+    const lbl = document.createElement('div');
+    lbl.style.cssText =
+      `height:${h}px;width:${LABEL_COL_W}px;display:flex;align-items:center;justify-content:center;` +
+      `overflow:hidden;flex-shrink:0`;
+    const span = document.createElement('span');
+    span.textContent = b.label;
+    span.style.cssText =
+      `writing-mode:vertical-lr;transform:rotate(180deg);` +
+      `font-size:${LABEL_FONT};white-space:nowrap;color:rgba(0,0,0,0.75)`;
+    lbl.appendChild(span);
+    leftCol.appendChild(lbl);
+  });
+  row.appendChild(leftCol);
+
+  // ── grid ──
+  const colDefs = [];
+  for (let j = 0; j < N; j++) {
+    if (j > 0 && blockStarts.has(j)) colDefs.push(`${SEP_PX}px`);
+    colDefs.push(`${cell}px`);
+  }
   const grid = document.createElement('div');
   grid.style.cssText =
-    `display:grid;grid-template-columns:repeat(${N_TOTAL},${cell}px);gap:${gap}px;width:${N_TOTAL*(cell+gap)}px`;
+    `display:grid;grid-template-columns:${colDefs.join(' ')};gap:0;line-height:0;font-size:0;flex-shrink:0`;
 
-  for (let i = 0; i < N_TOTAL; i++) {
-    for (let j = 0; j < N_TOTAL; j++) {
+  for (let i = 0; i < N; i++) {
+    if (i > 0 && blockStarts.has(i)) {
+      const sep = document.createElement('div');
+      sep.style.cssText = `grid-column:1/-1;height:${SEP_PX}px;background:#000`;
+      grid.appendChild(sep);
+    }
+    for (let j = 0; j < N; j++) {
+      if (j > 0 && blockStarts.has(j)) {
+        const sp = document.createElement('div');
+        sp.style.cssText = `width:${SEP_PX}px;height:${cell}px;background:#000`;
+        grid.appendChild(sp);
+      }
       const div = document.createElement('div');
       const v   = matrix[i][j];
       div.style.cssText =
-        `width:${cell}px;height:${cell}px;border-radius:1px;background:${
-          v === null ? 'rgba(255,255,255,0.5)' : rdmColor(v)
-        };cursor:pointer;opacity:${v === null ? 0.15 : 1}`;
-
-      div.addEventListener('mouseenter', () => {
-        if (v === null) return;
-        const rLbl = i < N_BRAIN ? subjectLabels[i] : modelLabels[i - N_BRAIN];
-        const cLbl = j < N_BRAIN ? subjectLabels[j] : modelLabels[j - N_BRAIN];
-        document.getElementById('rdm-info').textContent =
-          `${rLbl} × ${cLbl}  →  R = ${v.toFixed(3)}`;
-      });
-      div.addEventListener('mouseleave', () => {
-        document.getElementById('rdm-info').textContent = '';
-      });
+        `width:${cell}px;height:${cell}px;background:${
+          v === null ? 'rgba(200,200,200,0.4)' : rdmColor(norm(v))
+        };cursor:default`;
+      if (v !== null) {
+        const infoI = rdmDisplayInfo(i, blocks, labels);
+        const infoJ = rdmDisplayInfo(j, blocks, labels);
+        div.addEventListener('mouseenter', e => {
+          rdmTip.innerHTML =
+            `<b>System 1:</b> ${infoI}<br>` +
+            `<b>System 2:</b> ${infoJ}<br>` +
+            `<b>Noise-corrected correlation:</b> ${v.toFixed(3)}`;
+          rdmTip.style.display = 'block';
+          rdmTip.style.left = (e.clientX + 14) + 'px';
+          rdmTip.style.top  = (e.clientY + 14) + 'px';
+        });
+        div.addEventListener('mousemove', e => {
+          rdmTip.style.left = (e.clientX + 14) + 'px';
+          rdmTip.style.top  = (e.clientY + 14) + 'px';
+        });
+        div.addEventListener('mouseleave', () => {
+          rdmTip.style.display = 'none';
+        });
+      }
       grid.appendChild(div);
     }
   }
-  cont.appendChild(grid);
+  row.appendChild(grid);
 
-  // block labels
-  const labelRow = document.createElement('div');
-  labelRow.style.cssText =
-    'display:flex;margin-top:3px;font-size:10px;color:rgba(0,0,0,0.4);gap:0';
-  const bWidth  = N_BRAIN * (cell + gap);
-  const annWidth = N_ANN   * (cell + gap);
-  labelRow.innerHTML =
-    `<span style="width:${bWidth}px;flex-shrink:0">← Brain (S1-S8)</span>` +
-    `<span style="width:${annWidth}px;flex-shrink:0">← ANN models (CNNs + ViTs) →</span>`;
-  cont.appendChild(labelRow);
+  // ── colorbar canvas ──
+  const dpr = window.devicePixelRatio || 1;
+  const cbW = 42, cbH = gridPx;
+  const cb = document.createElement('canvas');
+  cb.width  = cbW * dpr;
+  cb.height = cbH * dpr;
+  cb.style.cssText = `width:${cbW}px;height:${cbH}px;flex-shrink:0`;
+  row.appendChild(cb);
+
+  cont.appendChild(row);
+  drawRdmColorbar(cb, metric);
 }
 
 /* ---- Figure 5: encoding model lesion ---- */
