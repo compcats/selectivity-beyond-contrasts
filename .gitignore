@@ -1,5 +1,6 @@
 .vscode
 figures/pdfs/*
+data/raw/*
 
 # Byte-compiled / optimized / DLL files
 **/.DS_Store
