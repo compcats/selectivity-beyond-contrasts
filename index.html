@@ -372,32 +372,37 @@
           </div>
           <div class="controls">
             <div class="ctrl-group">
-              <label for="f3-froi">fROI</label>
-              <select id="f3-froi" onchange="drawFig3Box()">
+              <label for="f23d1-froi">fROI</label>
+              <select id="f23d1-froi" onchange="drawF23Demo1()">
                 <option>FFA</option><option>EBA</option><option>PPA</option>
               </select>
             </div>
             <div class="ctrl-group">
-              <label for="f3-metric">Metric</label>
-              <select id="f3-metric" onchange="drawFig3Box()">
-                <option>Univariate</option><option>Multivariate</option>
+              <label for="f23d1-loc">Localizer</label>
+              <select id="f23d1-loc" onchange="drawF23Demo1()">
+                <optgroup label="Category contrast">
+                  <option value="grillspector">Stigliani et al., 2015 (L1)</option>
+                  <option value="kanwisher">Pitcher et al., 2011 (L2)</option>
+                </optgroup>
+                <optgroup label="Brain-aligned">
+                  <option value="nsd">Voxel-tuning matched</option>
+                </optgroup>
               </select>
             </div>
             <div class="ctrl-group">
-              <label for="f3-loc">Localizer</label>
-              <select id="f3-loc" onchange="drawFig3Box()">
-                <option>Localizer 1 (Stigliani et al.)</option>
-                <option>Localizer 2 (Pitcher et al.)</option>
-              </select>
+              <label for="f23d1-thresh">t-threshold: <strong id="f23d1-thresh-val">7</strong></label>
+              <input type="range" id="f23d1-thresh" min="3" max="11" step="2" value="7"
+                     oninput="document.getElementById('f23d1-thresh-val').textContent=this.value; drawF23Demo1()" />
             </div>
           </div>
-          <div class="legend">
-            <div class="legend-item"><div class="legend-dot" style="background:#D85A30"></div> Human-Human</div>
-            <div class="legend-item"><div class="legend-dot" style="background:#378ADD"></div> Human-ANN</div>
-          </div>
-          <div class="plot-wrap" style="height:210px;position:relative">
-            <canvas id="f3box-canvas"></canvas>
-            <div class="plot-tooltip" id="f3box-tip"></div>
+          <p class="interactive-hint">Hover a point to see system and correlation · click to pin highlight across both panels</p>
+          <div style="display:flex;align-items:flex-start;gap:0;justify-content:center">
+            <div class="plot-wrap" style="height:300px;position:relative;max-width:320px;flex:0 0 320px">
+              <canvas id="f23d1-canvas-uni"></canvas>
+            </div>
+            <div class="plot-wrap" style="height:300px;position:relative;max-width:320px;flex:0 0 320px">
+              <canvas id="f23d1-canvas-multi"></canvas>
+            </div>
           </div>
         </div>
       </div>
@@ -1117,50 +1122,213 @@ function drawF1demo() {
 const brainMeans = { FFA: 0.985, EBA: 0.990, PPA: 1.010 };
 const annMeans   = { FFA: 0.620, EBA: 0.550, PPA: 0.580 };
 
-function drawFig3Box() {
-  const froi   = document.getElementById('f3-froi').value;
-  const metric = document.getElementById('f3-metric').value;
-  const mul    = metric === 'Multivariate' ? 0.88 : 1.0;
-  const bm     = brainMeans[froi] * mul;
-  const am     = annMeans[froi]   * mul;
+const MPL_RED  = '#d24c34';
+const MPL_BLUE = '#15a6cc';
 
-  const canvas = document.getElementById('f3box-canvas');
-  const w = canvasWidth(canvas), h = 210;
+const FROI_DOMAIN = { FFA: 'face', EBA: 'body', PPA: 'scene' };
+
+// shared hover tooltip
+const f3Tip = document.createElement('div');
+f3Tip.style.cssText =
+  'position:fixed;background:rgba(20,20,20,0.92);color:#fff;' +
+  'font-size:11.5px;line-height:1.6;padding:7px 10px;border-radius:5px;' +
+  'pointer-events:none;z-index:9999;display:none;white-space:nowrap;' +
+  'font-family:-apple-system,BlinkMacSystemFont,sans-serif;' +
+  'box-shadow:0 2px 8px rgba(0,0,0,0.3)';
+document.body.appendChild(f3Tip);
+
+// shared selection state: null or { key, group } where group='hh'|'ha'
+let f3Selected = null;
+
+// point records per panel, keyed by canvasId
+const f3Points = {};
+
+function drawF23Demo1Panel(canvas, froi, mul, title) {
+  const w = canvasWidth(canvas), h = 300;
   const ctx = setupCanvas(canvas, w, h);
   ctx.clearRect(0, 0, w, h);
 
-  const ymin = -0.05, ymax = 1.15;
-  const pad  = 42, bw = 70;
-  const cx1  = w / 2 - 95, cx2 = w / 2 + 95;
-  const toY  = v => h - 24 - (v - ymin) / (ymax - ymin) * (h - 40);
+  const PAD_L = 58, PAD_R = 20, PAD_T = 28, PAD_B = 24;
+  const plotH = h - PAD_T - PAD_B;
 
-  drawDashedLine(ctx, toY(1.0), pad, w - 6, 'rgba(216,90,48,0.45)', 'ceiling ≈ 1.0');
-  drawAxisLabel(ctx, 'Noise-corrected R', 4, 10, { align: 'left', size: 10 });
+  const ymin = -0.25, ymax = 1.5;
+  const bw = 32;
+  const cx1 = PAD_L + (w - PAD_L - PAD_R) * 0.3;
+  const cx2 = PAD_L + (w - PAD_L - PAD_R) * 0.7;
+  const toY = v => h - PAD_B - (v - ymin) / (ymax - ymin) * plotH;
 
-  // brain-brain
-  const bbPts = Array.from({ length: 8 },  () => bm + (Math.random() - 0.5) * 0.08);
-  drawBox(ctx, cx1, bm - 0.04, bm + 0.03, bm, bm - 0.07, bm + 0.05, toY, bw, RED);
-  drawJitter(ctx, bbPts, cx1, bw, toY, RED);
+  const bm = brainMeans[froi] * mul;
+  const am = annMeans[froi]   * mul;
 
-  // brain-ANN
-  const baPts = Array.from({ length: 35 }, () => am + (Math.random() - 0.5) * 0.18);
-  drawBox(ctx, cx2, am - 0.08, am + 0.06, am, am - 0.15, am + 0.1, toY, bw, BLUE);
-  drawJitter(ctx, baPts, cx2, bw, toY, BLUE);
+  const domain = FROI_DOMAIN[froi];
+  const modelKeys = Object.keys(ORDERED_MODELS).filter(k => !UNTRAINED_MODELS.has(k));
 
-  drawAxisLabel(ctx, 'Human-Human', cx1, h - 6, { size: 11 });
-  drawAxisLabel(ctx, 'Human-ANN',   cx2, h - 6, { size: 11 });
-
-  // y-axis ticks
-  [0, 0.25, 0.5, 0.75, 1.0].forEach(v => {
-    const y = toY(v);
-    ctx.fillStyle = 'rgba(0,0,0,0.35)';
-    ctx.font = '9px -apple-system, sans-serif';
-    ctx.textAlign = 'right';
-    ctx.fillText(v.toFixed(2), pad - 4, y + 3);
-    ctx.strokeStyle = 'rgba(0,0,0,0.07)';
-    ctx.lineWidth = 0.5;
-    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(w - 6, y); ctx.stroke();
+  // build stable point records (seeded per group so positions survive redraws)
+  const hhPoints = Array.from({ length: 8 }, (_, i) => {
+    const rand = seededRand(i * 31 + 7);
+    const v    = bm + (rand() - 0.5) * 0.08;
+    const jx   = cx1 + (rand() - 0.5) * bw * 0.55;
+    return { key: `S${i + 1}`, group: 'hh', label: `Subject ${i + 1}`, v, jx };
   });
+
+  const haPoints = modelKeys.map((key, i) => {
+    const rand  = seededRand(i * 53 + 13);
+    const v     = am + (rand() - 0.5) * 0.18;
+    const jx    = cx2 + (rand() - 0.5) * bw * 0.55;
+    const layer = MODEL_LAYERS?.[key]?.[domain];
+    const label = ORDERED_MODELS[key] + (layer ? ` (${layer})` : '');
+    return { key, group: 'ha', label, v, jx };
+  });
+
+  f3Points[canvas.id] = { hhPoints, haPoints, cx1, cx2, toY, bm, am };
+
+  // dashed zero line
+  ctx.save();
+  ctx.strokeStyle = 'rgba(0,0,0,0.85)';
+  ctx.lineWidth = 0.6;
+  ctx.setLineDash([6, 4]);
+  ctx.beginPath();
+  ctx.moveTo(PAD_L, toY(0));
+  ctx.lineTo(w - PAD_R, toY(0));
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  function drawF1Box(cx, q1, q3, mean, wlo, whi, col) {
+    ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+    ctx.lineWidth   = 0.85;
+    ctx.beginPath();
+    ctx.moveTo(cx, toY(wlo)); ctx.lineTo(cx, toY(q1));
+    ctx.moveTo(cx, toY(q3));  ctx.lineTo(cx, toY(whi));
+    ctx.moveTo(cx - bw * 0.2, toY(wlo)); ctx.lineTo(cx + bw * 0.2, toY(wlo));
+    ctx.moveTo(cx - bw * 0.2, toY(whi)); ctx.lineTo(cx + bw * 0.2, toY(whi));
+    ctx.stroke();
+    ctx.fillStyle   = col;
+    ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+    ctx.lineWidth   = 0.55;
+    ctx.fillRect(cx - bw / 2, toY(q3), bw, toY(q1) - toY(q3));
+    ctx.strokeRect(cx - bw / 2, toY(q3), bw, toY(q1) - toY(q3));
+    ctx.strokeStyle = 'rgba(0,0,0,0.9)';
+    ctx.lineWidth   = 1.1;
+    ctx.beginPath();
+    ctx.moveTo(cx - bw * 0.7, toY(mean));
+    ctx.lineTo(cx + bw * 0.7, toY(mean));
+    ctx.stroke();
+  }
+
+  drawF1Box(cx1, bm - 0.04, bm + 0.03, bm, bm - 0.07, bm + 0.05, MPL_RED);
+  drawF1Box(cx2, am - 0.08, am + 0.06, am, am - 0.15, am + 0.1,   MPL_BLUE);
+
+  // draw jitter points
+  function drawPoint(pt, hovered) {
+    const isSelected = f3Selected && f3Selected.key === pt.key && f3Selected.group === pt.group;
+    const r = (isSelected || hovered) ? 4.5 : 2.5;
+    ctx.beginPath();
+    ctx.arc(pt.jx, toY(pt.v), r, 0, 2 * Math.PI);
+    ctx.fillStyle = isSelected ? 'rgba(0,0,0,1)' : 'rgba(128,128,128,0.75)';
+    ctx.fill();
+    if (isSelected) {
+      ctx.strokeStyle = 'rgba(0,0,0,0.9)';
+      ctx.lineWidth   = 1;
+      ctx.stroke();
+    }
+  }
+
+  [...hhPoints, ...haPoints].forEach(pt => drawPoint(pt, false));
+
+  // plot title
+  ctx.fillStyle = 'rgba(0,0,0,0.75)';
+  ctx.font      = '12px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(title, PAD_L + (w - PAD_L - PAD_R) / 2, 14);
+
+  // x-axis labels
+  ctx.fillStyle = 'rgba(0,0,0,1)';
+  ctx.font      = '12px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Human-Human', cx1, h - 6);
+  ctx.fillText('Human-ANN',   cx2, h - 6);
+
+  // y-axis spine + ticks
+  const yTickVals = [0, 0.25, 0.5, 0.75, 1.0];
+  const spineX = PAD_L - 10;
+  ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+  ctx.lineWidth   = 0.7;
+  ctx.beginPath();
+  ctx.moveTo(spineX, toY(yTickVals[0]));
+  ctx.lineTo(spineX, toY(yTickVals[yTickVals.length - 1]));
+  ctx.stroke();
+
+  yTickVals.forEach(v => {
+    const y = toY(v);
+    ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+    ctx.lineWidth   = 0.7;
+    ctx.beginPath();
+    ctx.moveTo(spineX, y);
+    ctx.lineTo(spineX - 4, y);
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.font      = '10px -apple-system, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText(v.toFixed(2), spineX - 6, y + 3);
+  });
+
+  // y-axis label — centered between y=0 and y=1
+  const yLabelCenter = (toY(0) + toY(1.0)) / 2;
+  ctx.save();
+  ctx.fillStyle = 'rgba(0,0,0,1)';
+  ctx.font      = '12px -apple-system, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.translate(10, yLabelCenter);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('Noise-corrected R', 0, 0);
+  ctx.restore();
+
+  // hover/click helpers — redraw both panels with updated state
+  function hitTest(mx, my) {
+    const dpr = window.devicePixelRatio || 1;
+    const scaleX = canvas.width  / (canvas.getBoundingClientRect().width  * dpr);
+    const scaleY = canvas.height / (canvas.getBoundingClientRect().height * dpr);
+    const all = [...hhPoints, ...haPoints];
+    return all.find(pt => Math.hypot(pt.jx - mx * scaleX, toY(pt.v) - my * scaleY) < 8 * dpr) || null;
+  }
+
+  canvas.onmousemove = e => {
+    const rect = canvas.getBoundingClientRect();
+    const hit  = hitTest(e.clientX - rect.left, e.clientY - rect.top);
+    canvas.style.cursor = hit ? 'pointer' : '';
+    if (hit) {
+      f3Tip.innerHTML  = `<b>System:</b> ${hit.label}<br><b>Correlation:</b> ${hit.v.toFixed(3)}`;
+      f3Tip.style.display = 'block';
+      f3Tip.style.left    = (e.clientX + 14) + 'px';
+      f3Tip.style.top     = (e.clientY + 14) + 'px';
+    } else {
+      f3Tip.style.display = 'none';
+    }
+  };
+
+  canvas.onmouseleave = () => {
+    f3Tip.style.display = 'none';
+    canvas.style.cursor = '';
+  };
+
+  canvas.onclick = e => {
+    const rect = canvas.getBoundingClientRect();
+    const hit  = hitTest(e.clientX - rect.left, e.clientY - rect.top);
+    if (hit) {
+      f3Selected = (f3Selected && f3Selected.key === hit.key && f3Selected.group === hit.group)
+        ? null : { key: hit.key, group: hit.group };
+    } else {
+      f3Selected = null;
+    }
+    drawF23Demo1();
+  };
+}
+
+function drawF23Demo1() {
+  const froi = document.getElementById('f23d1-froi').value;
+  drawF23Demo1Panel(document.getElementById('f23d1-canvas-uni'),   froi, 1.0,  'Univariate');
+  drawF23Demo1Panel(document.getElementById('f23d1-canvas-multi'), froi, 0.88, 'Multivariate');
 }
 
 /* ---- RDM ---- */
@@ -1648,13 +1816,13 @@ function drawFig6() {
 
 /* ---- Register global redraw for resize ---- */
 window.redrawAllPlots = () => {
-  drawBlob(); drawF1demo(); drawFig3Box(); drawF23Demo2();
+  drawBlob(); drawF1demo(); drawF23Demo1(); drawF23Demo2();
   drawFig5(); drawFig6();
 };
 
 /* ---- Initial render ---- */
 window.addEventListener('DOMContentLoaded', () => {
-  drawBlob(); drawF1demo(); drawFig3Box(); drawF23Demo2();
+  drawBlob(); drawF1demo(); drawF23Demo1(); drawF23Demo2();
   drawFig5(); drawFig6();
   if (location.hash) navigateToHash(location.hash);
   window.addEventListener('hashchange', () => navigateToHash(location.hash));
