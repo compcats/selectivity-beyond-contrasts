@@ -1347,7 +1347,7 @@ function drawF23Demo2() {
   }
   const grid = document.createElement('div');
   grid.style.cssText =
-    `display:grid;grid-template-columns:${colDefs.join(' ')};gap:0;line-height:0;font-size:0;flex-shrink:0`;
+    `display:grid;grid-template-columns:${colDefs.join(' ')};gap:0;line-height:0;font-size:0;flex-shrink:0;position:relative`;
 
   for (let i = 0; i < N; i++) {
     if (i > 0 && blockStarts.has(i)) {
@@ -1390,6 +1390,27 @@ function drawF23Demo2() {
       grid.appendChild(div);
     }
   }
+  // ── CNN/ViT dashed separator lines ──
+  // global split indices: face=39, body=90, scene=141 (23 CNNs + 12 ViTs per block)
+  const gridPixelPos = globalIdx =>
+    globalIdx * cell + blocks.filter(b => b.start > 0 && b.start <= globalIdx).length * SEP_PX;
+
+  [39, 90, 141].forEach(globalIdx => {
+    const pos = gridPixelPos(globalIdx);
+    const DASH_H = `repeating-linear-gradient(to right,rgba(0,0,0,0.5) 0 4px,transparent 4px 8px)`;
+    const DASH_V = `repeating-linear-gradient(to bottom,rgba(0,0,0,0.5) 0 4px,transparent 4px 8px)`;
+    const hLine = document.createElement('div');
+    hLine.style.cssText =
+      `position:absolute;left:0;top:${pos}px;width:${gridPx}px;height:2px;` +
+      `background:${DASH_H};pointer-events:none;z-index:1`;
+    grid.appendChild(hLine);
+    const vLine = document.createElement('div');
+    vLine.style.cssText =
+      `position:absolute;top:0;left:${pos}px;height:${gridPx}px;width:2px;` +
+      `background:${DASH_V};pointer-events:none;z-index:1`;
+    grid.appendChild(vLine);
+  });
+
   row.appendChild(grid);
 
   // ── colorbar canvas ──
@@ -1403,6 +1424,36 @@ function drawF23Demo2() {
 
   cont.appendChild(row);
   drawRdmColorbar(cb, metric);
+
+  // ── bottom sub-labels: CNNs / ViTs for model blocks only ──
+  const bottomRow = document.createElement('div');
+  bottomRow.style.cssText =
+    `display:flex;align-items:flex-start;margin-left:${LABEL_COL_W + 6}px;margin-top:3px`;
+  blocks.forEach((b, bi) => {
+    const totalW = (b.end - b.start) * cell + (bi > 0 ? SEP_PX : 0);
+    const wrapper = document.createElement('div');
+    wrapper.style.cssText = `width:${totalW}px;flex-shrink:0;display:flex`;
+    if (b.type === 'model') {
+      if (bi > 0) {
+        const sp = document.createElement('div');
+        sp.style.cssText = `width:${SEP_PX}px;flex-shrink:0`;
+        wrapper.appendChild(sp);
+      }
+      const cnnW = 23 * cell;
+      const vitW = (b.end - b.start - 23) * cell;
+      [['CNNs', cnnW], ['ViTs', vitW]].forEach(([text, w]) => {
+        const lbl = document.createElement('span');
+        lbl.textContent = text;
+        lbl.style.cssText =
+          `display:inline-block;width:${w}px;flex-shrink:0;` +
+          `font-size:${LABEL_FONT};color:rgba(0,0,0,0.75);` +
+          `text-align:center;white-space:nowrap;overflow:hidden`;
+        wrapper.appendChild(lbl);
+      });
+    }
+    bottomRow.appendChild(wrapper);
+  });
+  cont.appendChild(bottomRow);
 }
 
 /* ---- Figure 5: encoding model lesion ---- */
