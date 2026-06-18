@@ -128,6 +128,16 @@ const UNTRAINED_MODELS = new Set([
   'vitb32random1','vitb32random2','vitb32random3','vitb32random4','vitb32random5',
 ]);
 
+const TRAINED_MODELS = new Set(Object.keys(ORDERED_MODELS).filter(m => !UNTRAINED_MODELS.has(m)));
+// Sort the trained models alphabetically by their display name
+const SORTED_TRAINED_MODELS = Array.from(TRAINED_MODELS).sort((a, b) => {
+  const nameA = ORDERED_MODELS[a].toUpperCase();
+  const nameB = ORDERED_MODELS[b].toUpperCase();
+  if (nameA < nameB) return -1;
+  if (nameA > nameB) return 1;
+  return 0;
+});
+
 const CAT_COLORS = {
   face:  ['#f09678', '#a7d6a1', '#a6d2e5', '#808080'],
   body:  ['#f09678', '#a7d6a1', '#a6d2e5', '#808080'],
