@@ -1548,18 +1548,25 @@ function drawF23Demo2() {
       if (v !== null) {
         const infoI = rdmDisplayInfo(i, blocks, labels);
         const infoJ = rdmDisplayInfo(j, blocks, labels);
+        const positionRdmTip = e => {
+          const tipW = rdmTip.offsetWidth;
+          const tipH = rdmTip.offsetHeight;
+          const gap  = 14;
+          const flipX = e.clientX + gap + tipW > window.innerWidth - 200;
+          const flipY = e.clientY + gap + tipH > window.innerHeight - 200;
+          rdmTip.style.left = flipX ? (e.clientX - tipW - gap) + 'px' : (e.clientX + gap) + 'px';
+          rdmTip.style.top  = flipY ? (e.clientY - tipH - gap) + 'px' : (e.clientY + gap) + 'px';
+        };
         div.addEventListener('mouseenter', e => {
           rdmTip.innerHTML =
             `<b>System 1:</b> ${infoI}<br>` +
             `<b>System 2:</b> ${infoJ}<br>` +
             `<b>Noise-corrected correlation:</b> ${v.toFixed(3)}`;
           rdmTip.style.display = 'block';
-          rdmTip.style.left = (e.clientX + 14) + 'px';
-          rdmTip.style.top  = (e.clientY + 14) + 'px';
+          positionRdmTip(e);
         });
         div.addEventListener('mousemove', e => {
-          rdmTip.style.left = (e.clientX + 14) + 'px';
-          rdmTip.style.top  = (e.clientY + 14) + 'px';
+          positionRdmTip(e);
         });
         div.addEventListener('mouseleave', () => {
           rdmTip.style.display = 'none';
