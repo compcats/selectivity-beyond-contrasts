@@ -1135,14 +1135,48 @@ function drawF1demo() {
 }
 
 /* ---- Figure 3: similarity boxplot ---- */
-// TODO: replace with real data from data/fig3_boxplot.json
-const brainMeans = { FFA: 0.985, EBA: 0.990, PPA: 1.010 };
 const annMeans   = { FFA: 0.620, EBA: 0.550, PPA: 0.580 };
 
 const MPL_RED  = '#d24c34';
 const MPL_BLUE = '#15a6cc';
 
 const FROI_DOMAIN = { FFA: 'face', EBA: 'body', PPA: 'scene' };
+
+// Stable x-jitter for HH points — generated once on first draw, shared across both panels
+let HH_JITTER = null;
+function getHHJitter() {
+  if (!HH_JITTER) HH_JITTER = Array.from({ length: 8 }, (_, i) => {
+    const r = seededRand(i * 1000 + 100);
+    r(); r(); // warm up so first-call values aren't all near zero
+    return r() - 0.5;
+  });
+  return HH_JITTER;
+}
+
+let hhData = null;
+fetch('data/f23demo1_hh.json').then(r => r.json()).then(d => {
+  hhData = d;
+  drawF23Demo1();
+}).catch(err => console.error('Failed to load f23demo1_hh data:', err));
+
+function boxStats(vals) {
+  const sorted = [...vals].filter(v => v != null).sort((a, b) => a - b);
+  const n = sorted.length;
+  if (!n) return null;
+  const median = n % 2 === 0
+    ? (sorted[n / 2 - 1] + sorted[n / 2]) / 2
+    : sorted[Math.floor(n / 2)];
+  const q1 = n >= 4
+    ? (sorted[Math.floor((n - 1) / 4)] + sorted[Math.ceil((n - 1) / 4)]) / 2
+    : sorted[0];
+  const q3 = n >= 4
+    ? (sorted[Math.floor(3 * (n - 1) / 4)] + sorted[Math.ceil(3 * (n - 1) / 4)]) / 2
+    : sorted[n - 1];
+  const iqr = q3 - q1;
+  const wlo = Math.max(sorted[0], q1 - 1.5 * iqr);
+  const whi = Math.min(sorted[n - 1], q3 + 1.5 * iqr);
+  return { median, q1, q3, wlo, whi };
+}
 
 // shared hover tooltip
 const f3Tip = document.createElement('div');
@@ -1160,7 +1194,7 @@ let f3Selected = null;
 // point records per panel, keyed by canvasId
 const f3Points = {};
 
-function drawF23Demo1Panel(canvas, froi, mul, title) {
+function drawF23Demo1Panel(canvas, froi, thresh, mul, metricKey, title) {
   const w = canvasWidth(canvas), h = 300;
   const ctx = setupCanvas(canvas, w, h);
   ctx.clearRect(0, 0, w, h);
@@ -1174,19 +1208,21 @@ function drawF23Demo1Panel(canvas, froi, mul, title) {
   const cx2 = PAD_L + (w - PAD_L - PAD_R) * 0.7;
   const toY = v => h - PAD_B - (v - ymin) / (ymax - ymin) * plotH;
 
-  const bm = brainMeans[froi] * mul;
-  const am = annMeans[froi]   * mul;
+  // Human-human points from real data
+  const hhRaw = hhData?.[froi]?.[thresh] ?? [];
+  const hhJitter = getHHJitter();
+  const hhPoints = hhRaw.map((d, i) => {
+    const v  = d[metricKey];
+    const jx = cx1 + hhJitter[i] * bw * 0.55;
+    return { key: `S${d.subject}`, group: 'hh', label: `Subject ${d.subject}`, v, jx };
+  }).filter(pt => pt.v != null);
 
+  const hhVals = hhPoints.map(pt => pt.v);
+  const hhBox  = hhVals.length ? boxStats(hhVals) : null;
+
+  const am = annMeans[froi] * mul;
   const domain = FROI_DOMAIN[froi];
   const modelKeys = Object.keys(ORDERED_MODELS).filter(k => !UNTRAINED_MODELS.has(k));
-
-  // build stable point records (seeded per group so positions survive redraws)
-  const hhPoints = Array.from({ length: 8 }, (_, i) => {
-    const rand = seededRand(i * 31 + 7);
-    const v    = bm + (rand() - 0.5) * 0.08;
-    const jx   = cx1 + (rand() - 0.5) * bw * 0.55;
-    return { key: `S${i + 1}`, group: 'hh', label: `Subject ${i + 1}`, v, jx };
-  });
 
   const haPoints = modelKeys.map((key, i) => {
     const rand  = seededRand(i * 53 + 13);
@@ -1197,7 +1233,7 @@ function drawF23Demo1Panel(canvas, froi, mul, title) {
     return { key, group: 'ha', label, v, jx };
   });
 
-  f3Points[canvas.id] = { hhPoints, haPoints, cx1, cx2, toY, bm, am };
+  f3Points[canvas.id] = { hhPoints, haPoints, cx1, cx2, toY };
 
   // dashed zero line
   ctx.save();
@@ -1211,7 +1247,7 @@ function drawF23Demo1Panel(canvas, froi, mul, title) {
   ctx.setLineDash([]);
   ctx.restore();
 
-  function drawF1Box(cx, q1, q3, mean, wlo, whi, col) {
+  function drawF1Box(cx, q1, q3, median, wlo, whi, col) {
     ctx.strokeStyle = 'rgba(0,0,0,0.75)';
     ctx.lineWidth   = 0.85;
     ctx.beginPath();
@@ -1228,13 +1264,15 @@ function drawF23Demo1Panel(canvas, froi, mul, title) {
     ctx.strokeStyle = 'rgba(0,0,0,0.9)';
     ctx.lineWidth   = 1.1;
     ctx.beginPath();
-    ctx.moveTo(cx - bw * 0.7, toY(mean));
-    ctx.lineTo(cx + bw * 0.7, toY(mean));
+    ctx.moveTo(cx - bw * 0.7, toY(median));
+    ctx.lineTo(cx + bw * 0.7, toY(median));
     ctx.stroke();
   }
 
-  drawF1Box(cx1, bm - 0.04, bm + 0.03, bm, bm - 0.07, bm + 0.05, MPL_RED);
-  drawF1Box(cx2, am - 0.08, am + 0.06, am, am - 0.15, am + 0.1,   MPL_BLUE);
+  if (hhBox) {
+    drawF1Box(cx1, hhBox.q1, hhBox.q3, hhBox.median, hhBox.wlo, hhBox.whi, MPL_RED);
+  }
+  drawF1Box(cx2, am - 0.08, am + 0.06, am, am - 0.15, am + 0.1, MPL_BLUE);
 
   // draw jitter points
   function drawPoint(pt, hovered) {
@@ -1315,7 +1353,9 @@ function drawF23Demo1Panel(canvas, froi, mul, title) {
     const hit  = hitTest(e.clientX - rect.left, e.clientY - rect.top);
     canvas.style.cursor = hit ? 'pointer' : '';
     if (hit) {
-      f3Tip.innerHTML  = `<b>System:</b> ${hit.label}<br><b>Correlation:</b> ${hit.v.toFixed(3)}`;
+      f3Tip.innerHTML = hit.group === 'hh'
+        ? `<b>${hit.label}</b><br><b>Median across other subjects:</b> ${hit.v.toFixed(3)}`
+        : `<b>System:</b> ${hit.label}<br><b>Correlation:</b> ${hit.v.toFixed(3)}`;
       f3Tip.style.display = 'block';
       f3Tip.style.left    = (e.clientX + 14) + 'px';
       f3Tip.style.top     = (e.clientY + 14) + 'px';
@@ -1343,9 +1383,10 @@ function drawF23Demo1Panel(canvas, froi, mul, title) {
 }
 
 function drawF23Demo1() {
-  const froi = document.getElementById('f23d1-froi').value;
-  drawF23Demo1Panel(document.getElementById('f23d1-canvas-uni'),   froi, 1.0,  'Univariate');
-  drawF23Demo1Panel(document.getElementById('f23d1-canvas-multi'), froi, 0.88, 'Multivariate');
+  const froi   = document.getElementById('f23d1-froi').value;
+  const thresh = document.getElementById('f23d1-fmri-thresh').value;
+  drawF23Demo1Panel(document.getElementById('f23d1-canvas-uni'),   froi, thresh, 1.0,  'normed_pearsonr', 'Univariate');
+  drawF23Demo1Panel(document.getElementById('f23d1-canvas-multi'), froi, thresh, 0.88, 'normed_rdmr',     'Multivariate');
 }
 
 /* ---- RDM ---- */
