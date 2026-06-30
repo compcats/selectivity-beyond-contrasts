@@ -1,0 +1,1698 @@
+{
+  "EBA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.037409,
+        "normed_rdmr": 1.112242
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 1.019337,
+        "normed_rdmr": 1.158811
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.019337,
+        "normed_rdmr": 1.158811
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.117308,
+        "normed_rdmr": 1.287846
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.989297,
+        "normed_rdmr": 1.078737
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.995486,
+        "normed_rdmr": 1.252197
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.986092,
+        "normed_rdmr": 1.06208
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.966081,
+        "normed_rdmr": 1.256331
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.028337,
+        "normed_rdmr": 1.095317
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 1.001624,
+        "normed_rdmr": 1.127725
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.002819,
+        "normed_rdmr": 1.099154
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.101047,
+        "normed_rdmr": 1.282079
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.986803,
+        "normed_rdmr": 1.040714
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 1.013127,
+        "normed_rdmr": 1.201259
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.986803,
+        "normed_rdmr": 1.040714
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.960776,
+        "normed_rdmr": 1.181807
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.016267,
+        "normed_rdmr": 1.068557
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.991892,
+        "normed_rdmr": 1.113501
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.991892,
+        "normed_rdmr": 1.068557
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.08694,
+        "normed_rdmr": 1.243215
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.985073,
+        "normed_rdmr": 1.007704
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 1.02724,
+        "normed_rdmr": 1.19363
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.991126,
+        "normed_rdmr": 1.02807
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.974676,
+        "normed_rdmr": 1.133921
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.003576,
+        "normed_rdmr": 1.043562
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.981609,
+        "normed_rdmr": 1.077116
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.97388,
+        "normed_rdmr": 1.041019
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.064101,
+        "normed_rdmr": 1.17589
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.974984,
+        "normed_rdmr": 1.002229
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 1.017991,
+        "normed_rdmr": 1.178787
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.98869,
+        "normed_rdmr": 1.002229
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.971996,
+        "normed_rdmr": 1.086787
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.9936,
+        "normed_rdmr": 1.021722
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.966014,
+        "normed_rdmr": 1.010296
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.976258,
+        "normed_rdmr": 1.018184
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.064479,
+        "normed_rdmr": 1.151591
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.970602,
+        "normed_rdmr": 0.96578
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 1.01757,
+        "normed_rdmr": 1.145848
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.982109,
+        "normed_rdmr": 1.018184
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.968305,
+        "normed_rdmr": 1.029262
+      }
+    ]
+  },
+  "FBA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.01232,
+        "normed_rdmr": 1.141614
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.963537,
+        "normed_rdmr": 1.206377
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.020126,
+        "normed_rdmr": 1.124727
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.098922,
+        "normed_rdmr": 1.477377
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.001698,
+        "normed_rdmr": 1.124727
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.985219,
+        "normed_rdmr": 1.141614
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.990378,
+        "normed_rdmr": 1.138238
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.978541,
+        "normed_rdmr": 1.06703
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.988352,
+        "normed_rdmr": 1.027598
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.90263,
+        "normed_rdmr": 0.990821
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.960148,
+        "normed_rdmr": 1.071873
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.934261,
+        "normed_rdmr": 1.271513
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.966619,
+        "normed_rdmr": 1.052735
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.950858,
+        "normed_rdmr": 1.074586
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.960148,
+        "normed_rdmr": 1.036389
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.914478,
+        "normed_rdmr": 1.01266
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.971279,
+        "normed_rdmr": 1.006733
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.927347,
+        "normed_rdmr": 0.982884
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.953281,
+        "normed_rdmr": 1.021319
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.94242,
+        "normed_rdmr": 1.182493
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.923999,
+        "normed_rdmr": 0.98809
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.934631,
+        "normed_rdmr": 1.025594
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.94242,
+        "normed_rdmr": 1.010454
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.950241,
+        "normed_rdmr": 0.98809
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.939524,
+        "normed_rdmr": 0.935773
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.94297,
+        "normed_rdmr": 0.97662
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.913964,
+        "normed_rdmr": 0.959996
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.92799,
+        "normed_rdmr": 1.082352
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.919886,
+        "normed_rdmr": 0.905848
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.919886,
+        "normed_rdmr": 0.959996
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.913964,
+        "normed_rdmr": 0.832164
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.939524,
+        "normed_rdmr": 0.935773
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.955779,
+        "normed_rdmr": 0.965099
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.905767,
+        "normed_rdmr": 0.845511
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.919624,
+        "normed_rdmr": 0.905228
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.944024,
+        "normed_rdmr": 0.916838
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.869724,
+        "normed_rdmr": 0.82202
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.921414,
+        "normed_rdmr": 0.864411
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": null,
+        "normed_rdmr": null
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.936549,
+        "normed_rdmr": 0.928631
+      }
+    ]
+  },
+  "FFA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.991471,
+        "normed_rdmr": 1.074943
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.965733,
+        "normed_rdmr": 1.014774
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.002,
+        "normed_rdmr": 1.055423
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.028754,
+        "normed_rdmr": 1.128199
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.016086,
+        "normed_rdmr": 1.118727
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.983833,
+        "normed_rdmr": 1.055423
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.002,
+        "normed_rdmr": 1.208042
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.965733,
+        "normed_rdmr": 1.049501
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.986403,
+        "normed_rdmr": 1.029869
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.949789,
+        "normed_rdmr": 0.977613
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.00061,
+        "normed_rdmr": 1.020733
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.007486,
+        "normed_rdmr": 1.067812
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.009871,
+        "normed_rdmr": 1.066265
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.983498,
+        "normed_rdmr": 1.020733
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.00061,
+        "normed_rdmr": 1.176905
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.949789,
+        "normed_rdmr": 0.989665
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.976198,
+        "normed_rdmr": 0.992506
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.937721,
+        "normed_rdmr": 0.934214
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.986289,
+        "normed_rdmr": 1.000574
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.993458,
+        "normed_rdmr": 1.026091
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.000975,
+        "normed_rdmr": 1.022894
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.976198,
+        "normed_rdmr": 0.992506
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.003028,
+        "normed_rdmr": 1.138522
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.937721,
+        "normed_rdmr": 0.974247
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.966336,
+        "normed_rdmr": 0.967434
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.935822,
+        "normed_rdmr": 0.924334
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.978477,
+        "normed_rdmr": 0.981939
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.979114,
+        "normed_rdmr": 0.987635
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.992308,
+        "normed_rdmr": 1.022189
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.978492,
+        "normed_rdmr": 0.967434
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.997029,
+        "normed_rdmr": 1.09892
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.938434,
+        "normed_rdmr": 0.95287
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.964455,
+        "normed_rdmr": 0.961161
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.936384,
+        "normed_rdmr": 0.91409
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.964455,
+        "normed_rdmr": 0.974398
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.968159,
+        "normed_rdmr": 0.969104
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.980787,
+        "normed_rdmr": 1.007242
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.965885,
+        "normed_rdmr": 0.952688
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.973571,
+        "normed_rdmr": 1.068542
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.936384,
+        "normed_rdmr": 0.931736
+      }
+    ]
+  },
+  "OFA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.740592,
+        "normed_rdmr": 0.818014
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.764877,
+        "normed_rdmr": 0.514135
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.989379,
+        "normed_rdmr": 0.982945
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.01292,
+        "normed_rdmr": 0.980008
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.984306,
+        "normed_rdmr": 0.983636
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.983815,
+        "normed_rdmr": 1.089113
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.960667,
+        "normed_rdmr": 0.982945
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.844189,
+        "normed_rdmr": 0.841237
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.738157,
+        "normed_rdmr": 0.688582
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.68361,
+        "normed_rdmr": 0.496044
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.993014,
+        "normed_rdmr": 0.95306
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.990731,
+        "normed_rdmr": 0.909727
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.971454,
+        "normed_rdmr": 0.982904
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.976554,
+        "normed_rdmr": 0.935173
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.942171,
+        "normed_rdmr": 0.95306
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.816772,
+        "normed_rdmr": 0.80453
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.78278,
+        "normed_rdmr": 0.640885
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.668478,
+        "normed_rdmr": 0.425111
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.985748,
+        "normed_rdmr": 0.98509
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.946605,
+        "normed_rdmr": 0.906488
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.928748,
+        "normed_rdmr": 1.012907
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.946605,
+        "normed_rdmr": 0.957899
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.882921,
+        "normed_rdmr": 0.923778
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.887089,
+        "normed_rdmr": 0.957899
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.695943,
+        "normed_rdmr": 0.512954
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.695181,
+        "normed_rdmr": 0.504611
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.953662,
+        "normed_rdmr": 0.910996
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.883592,
+        "normed_rdmr": 0.744264
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.896656,
+        "normed_rdmr": 0.875513
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.895166,
+        "normed_rdmr": 0.816174
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.843719,
+        "normed_rdmr": 0.910996
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.895166,
+        "normed_rdmr": 0.816174
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.592474,
+        "normed_rdmr": 0.490681
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.401773,
+        "normed_rdmr": 0.490681
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.896774,
+        "normed_rdmr": 0.802537
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.836921,
+        "normed_rdmr": 0.69927
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.85452,
+        "normed_rdmr": 0.750217
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.846358,
+        "normed_rdmr": 0.736615
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.75382,
+        "normed_rdmr": 0.667401
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.846358,
+        "normed_rdmr": 0.726514
+      }
+    ]
+  },
+  "OPA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.014107,
+        "normed_rdmr": 1.192031
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.988324,
+        "normed_rdmr": 1.115429
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.057345,
+        "normed_rdmr": 1.196553
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.062794,
+        "normed_rdmr": 1.62804
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.050845,
+        "normed_rdmr": 1.128384
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.940297,
+        "normed_rdmr": 0.901084
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.996258,
+        "normed_rdmr": 1.136392
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.023,
+        "normed_rdmr": 1.059372
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.021172,
+        "normed_rdmr": 1.154321
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.977309,
+        "normed_rdmr": 1.095748
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.059397,
+        "normed_rdmr": 1.199257
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.059397,
+        "normed_rdmr": 1.551883
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.04362,
+        "normed_rdmr": 1.144279
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.946386,
+        "normed_rdmr": 0.952844
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.991071,
+        "normed_rdmr": 1.166773
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.02056,
+        "normed_rdmr": 1.182814
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.01315,
+        "normed_rdmr": 1.148296
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.966591,
+        "normed_rdmr": 1.119525
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.041665,
+        "normed_rdmr": 1.104626
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.046543,
+        "normed_rdmr": 1.491355
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.039682,
+        "normed_rdmr": 1.119525
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.943172,
+        "normed_rdmr": 0.878981
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.961724,
+        "normed_rdmr": 1.110634
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.014698,
+        "normed_rdmr": 1.395706
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.939907,
+        "normed_rdmr": 1.086987
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.973057,
+        "normed_rdmr": 1.056511
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.951362,
+        "normed_rdmr": 0.989296
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.992493,
+        "normed_rdmr": 1.205417
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.989711,
+        "normed_rdmr": 1.080305
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.939907,
+        "normed_rdmr": 0.899349
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.956651,
+        "normed_rdmr": 1.086987
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.882026,
+        "normed_rdmr": 0.864866
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.87763,
+        "normed_rdmr": 0.810454
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.87763,
+        "normed_rdmr": 0.844705
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.888589,
+        "normed_rdmr": 0.993454
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.960505,
+        "normed_rdmr": 1.192899
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.921461,
+        "normed_rdmr": 0.988004
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.904224,
+        "normed_rdmr": 0.810454
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.86578,
+        "normed_rdmr": 1.116324
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.82746,
+        "normed_rdmr": 0.790834
+      }
+    ]
+  },
+  "OVWFA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.701696,
+        "normed_rdmr": 0.88585
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.768855,
+        "normed_rdmr": 0.96863
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.889593,
+        "normed_rdmr": 1.101732
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.876971,
+        "normed_rdmr": 1.311312
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.905355,
+        "normed_rdmr": 1.101732
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.796174,
+        "normed_rdmr": 1.030575
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.738594,
+        "normed_rdmr": 1.377195
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.838181,
+        "normed_rdmr": 1.030575
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.684482,
+        "normed_rdmr": 0.716376
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.68574,
+        "normed_rdmr": 0.823209
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.848991,
+        "normed_rdmr": 0.938178
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.791103,
+        "normed_rdmr": 1.06012
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.843139,
+        "normed_rdmr": 1.06012
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.692773,
+        "normed_rdmr": 0.775986
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.730242,
+        "normed_rdmr": 1.283699
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.747442,
+        "normed_rdmr": 0.780571
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.627396,
+        "normed_rdmr": 0.626164
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.653828,
+        "normed_rdmr": 0.677876
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.760131,
+        "normed_rdmr": 0.730069
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.7183,
+        "normed_rdmr": 0.791302
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.775187,
+        "normed_rdmr": 0.946729
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.668747,
+        "normed_rdmr": 0.646181
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.715189,
+        "normed_rdmr": 0.884153
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.756946,
+        "normed_rdmr": 0.745455
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.626756,
+        "normed_rdmr": 0.603781
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.65507,
+        "normed_rdmr": 0.730083
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.785142,
+        "normed_rdmr": 0.781707
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.687377,
+        "normed_rdmr": 0.781707
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.757241,
+        "normed_rdmr": 0.83847
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.756229,
+        "normed_rdmr": 0.762112
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.681395,
+        "normed_rdmr": 0.83847
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.828242,
+        "normed_rdmr": 0.703632
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.605613,
+        "normed_rdmr": 0.411196
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.564943,
+        "normed_rdmr": 0.469306
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.620852,
+        "normed_rdmr": 0.315942
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.611324,
+        "normed_rdmr": 0.647801
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.611324,
+        "normed_rdmr": 0.574105
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.684928,
+        "normed_rdmr": 0.686279
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.672824,
+        "normed_rdmr": 0.602671
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.794578,
+        "normed_rdmr": 0.836692
+      }
+    ]
+  },
+  "PPA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.028655,
+        "normed_rdmr": 1.058539
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 1.005367,
+        "normed_rdmr": 1.02205
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.024505,
+        "normed_rdmr": 1.097466
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.057213,
+        "normed_rdmr": 1.222264
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.024505,
+        "normed_rdmr": 1.072639
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.994576,
+        "normed_rdmr": 1.036348
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.066253,
+        "normed_rdmr": 1.064044
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.04582,
+        "normed_rdmr": 1.269036
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 1.019636,
+        "normed_rdmr": 1.059275
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 1.005178,
+        "normed_rdmr": 1.031463
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.018169,
+        "normed_rdmr": 1.061663
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.038942,
+        "normed_rdmr": 1.196764
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.014183,
+        "normed_rdmr": 1.041915
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.97865,
+        "normed_rdmr": 1.005808
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.051704,
+        "normed_rdmr": 1.074254
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.03573,
+        "normed_rdmr": 1.264665
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.988677,
+        "normed_rdmr": 1.003454
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 1.003894,
+        "normed_rdmr": 1.026265
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 1.005868,
+        "normed_rdmr": 1.018084
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.018734,
+        "normed_rdmr": 1.124662
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 1.005868,
+        "normed_rdmr": 1.018084
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.966544,
+        "normed_rdmr": 0.936666
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.045437,
+        "normed_rdmr": 1.071576
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.02919,
+        "normed_rdmr": 1.194699
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.972955,
+        "normed_rdmr": 1.012951
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.991634,
+        "normed_rdmr": 1.012951
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.996516,
+        "normed_rdmr": 0.996838
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 1.001633,
+        "normed_rdmr": 1.078717
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.996516,
+        "normed_rdmr": 1.012429
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.965755,
+        "normed_rdmr": 0.937295
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 1.047526,
+        "normed_rdmr": 1.164705
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 1.020525,
+        "normed_rdmr": 1.142413
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.976701,
+        "normed_rdmr": 1.030762
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.988614,
+        "normed_rdmr": 1.028875
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.985334,
+        "normed_rdmr": 0.967183
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.976701,
+        "normed_rdmr": 0.998456
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.971044,
+        "normed_rdmr": 0.985513
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.955697,
+        "normed_rdmr": 0.899813
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.973049,
+        "normed_rdmr": 0.987385
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.997248,
+        "normed_rdmr": 1.050696
+      }
+    ]
+  },
+  "VWFA": {
+    "3": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.829276,
+        "normed_rdmr": 0.884425
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.746676,
+        "normed_rdmr": 0.835135
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.900027,
+        "normed_rdmr": 0.988511
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.900027,
+        "normed_rdmr": 1.175388
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.896892,
+        "normed_rdmr": 0.988511
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.822846,
+        "normed_rdmr": 0.998061
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.844812,
+        "normed_rdmr": 1.025316
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.910169,
+        "normed_rdmr": 0.811564
+      }
+    ],
+    "5": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.772149,
+        "normed_rdmr": 0.768664
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.726444,
+        "normed_rdmr": 0.875294
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.755918,
+        "normed_rdmr": 0.888825
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.755918,
+        "normed_rdmr": 0.984146
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.835402,
+        "normed_rdmr": 0.888825
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.772149,
+        "normed_rdmr": 0.855375
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.839262,
+        "normed_rdmr": 0.895679
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.863546,
+        "normed_rdmr": 0.875294
+      }
+    ],
+    "7": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.742345,
+        "normed_rdmr": 0.769573
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.759587,
+        "normed_rdmr": 0.837971
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.725881,
+        "normed_rdmr": 0.861744
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.724752,
+        "normed_rdmr": 0.928786
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.832773,
+        "normed_rdmr": 0.905438
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.737451,
+        "normed_rdmr": 0.811568
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.795371,
+        "normed_rdmr": 0.862061
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.840265,
+        "normed_rdmr": 0.837971
+      }
+    ],
+    "9": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.727514,
+        "normed_rdmr": 0.795082
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.7116,
+        "normed_rdmr": 0.744194
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.731181,
+        "normed_rdmr": 0.795082
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.692525,
+        "normed_rdmr": 0.741512
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.839211,
+        "normed_rdmr": 0.765818
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.731181,
+        "normed_rdmr": 0.630801
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.760273,
+        "normed_rdmr": 0.886237
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.82482,
+        "normed_rdmr": 0.887125
+      }
+    ],
+    "11": [
+      {
+        "subject": 1,
+        "normed_pearsonr": 0.706662,
+        "normed_rdmr": 0.583761
+      },
+      {
+        "subject": 2,
+        "normed_pearsonr": 0.64755,
+        "normed_rdmr": 0.87453
+      },
+      {
+        "subject": 3,
+        "normed_pearsonr": 0.718992,
+        "normed_rdmr": 0.684636
+      },
+      {
+        "subject": 4,
+        "normed_pearsonr": 0.686867,
+        "normed_rdmr": 0.752293
+      },
+      {
+        "subject": 5,
+        "normed_pearsonr": 0.762016,
+        "normed_rdmr": 0.684636
+      },
+      {
+        "subject": 6,
+        "normed_pearsonr": 0.691052,
+        "normed_rdmr": 0.69862
+      },
+      {
+        "subject": 7,
+        "normed_pearsonr": 0.726251,
+        "normed_rdmr": 0.823884
+      },
+      {
+        "subject": 8,
+        "normed_pearsonr": 0.827432,
+        "normed_rdmr": 0.949329
+      }
+    ]
+  }
+}
