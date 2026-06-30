@@ -374,11 +374,28 @@
             <div class="ctrl-group">
               <label for="f23d1-froi">fROI</label>
               <select id="f23d1-froi" onchange="drawF23Demo1()">
-                <option>FFA</option><option>EBA</option><option>PPA</option>
+                <optgroup label="Face-selective">
+                  <option>FFA</option><option>OFA</option>
+                </optgroup>
+                <optgroup label="Body-selective">
+                  <option>EBA</option><option>FBA</option>
+                </optgroup>
+                <optgroup label="Scene-selective">
+                  <option>PPA</option><option>OPA</option>
+                </optgroup>
+                <optgroup label="Word-selective">
+                  <option>VWFA</option><option>OVWFA</option>
+                </optgroup>
               </select>
             </div>
             <div class="ctrl-group">
-              <label for="f23d1-loc">Localizer</label>
+              <label for="f23d1-fmri-thresh">fMRI t-threshold: <strong id="f23d1-fmri-thresh-val">7</strong></label>
+              <input type="range" id="f23d1-fmri-thresh" min="3" max="11" step="2" value="7"
+                     oninput="document.getElementById('f23d1-fmri-thresh-val').textContent=this.value; drawF23Demo1()" />
+            </div>
+            <span style="align-self:center;color:var(--neutral-light);font-size:16px">·</span>
+            <div class="ctrl-group">
+              <label for="f23d1-loc">ANN Localizer</label>
               <select id="f23d1-loc" onchange="drawF23Demo1()">
                 <optgroup label="Category contrast">
                   <option value="grillspector">Stigliani et al., 2015 (L1)</option>
@@ -390,9 +407,9 @@
               </select>
             </div>
             <div class="ctrl-group">
-              <label for="f23d1-thresh">t-threshold: <strong id="f23d1-thresh-val">7</strong></label>
-              <input type="range" id="f23d1-thresh" min="3" max="11" step="2" value="7"
-                     oninput="document.getElementById('f23d1-thresh-val').textContent=this.value; drawF23Demo1()" />
+              <label for="f23d1-ann-thresh">ANN t-threshold: <strong id="f23d1-ann-thresh-val">7</strong></label>
+              <input type="range" id="f23d1-ann-thresh" min="3" max="11" step="2" value="7"
+                     oninput="document.getElementById('f23d1-ann-thresh-val').textContent=this.value; drawF23Demo1()" />
             </div>
           </div>
           <p class="interactive-hint">Hover a point to see system and correlation · click to pin highlight across both panels</p>
