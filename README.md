@@ -1,4 +1,4 @@
-# Rethinking category selectivity
+# Selectivity beyond contrasts
 
 
 ## Citation
